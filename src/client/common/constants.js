@@ -262,6 +262,7 @@ export const undeletableIds = new Set([
 export const webAppHiddenSettings = [
   'hotkey',
   'opacity',
+  'windowBackgroundMaterial',
   'useSystemTitleBar',
   'checkUpdateOnStart',
   'allowMultiInstance',

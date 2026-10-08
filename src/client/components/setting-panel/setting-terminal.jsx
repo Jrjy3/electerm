@@ -32,6 +32,7 @@ import Link from '../common/external-link'
 import FontSelect from '../common/font-select'
 import HelpIcon from '../common/help-icon'
 import KeywordsTransport from './keywords-transport'
+import { systemTitleBarTip } from './system-title-bar-tip'
 import uid from '../../common/uid'
 import createDefaultSessionLogPath from '../../common/default-log-path'
 import TerminalBackgroundConfig from './terminal-bg-config'
@@ -74,7 +75,7 @@ export default class SettingTerminal extends Component {
 
   onChangeValue = (value, name) => {
     if (name === 'useSystemTitleBar') {
-      message.info(e('useSystemTitleBarTip'), 8)
+      message.info(systemTitleBarTip(), 8)
     } else if (name === 'sftpPathFollowSsh' && value) {
       message.warning(e('sftpPathFollowSshTip'), 8)
     }

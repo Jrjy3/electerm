@@ -22,7 +22,8 @@ import TextareaConfirm from '../common/textarea-confirm'
 import {
   settingMap,
   proxyHelpLink,
-  webAppHiddenSettings
+  webAppHiddenSettings,
+  isWin
 } from '../../common/constants'
 import defaultSettings from '../../common/default-setting'
 import Link from '../common/external-link'
@@ -36,6 +37,7 @@ import DeepLinkControl from './deep-link-control'
 import InstallCommand from './install-command'
 import HotkeySetting from './hotkey'
 import SettingLeftSidebarIcons from './setting-left-sidebar-icons'
+import { systemTitleBarTip } from './system-title-bar-tip'
 import './setting.styl'
 
 const { Option } = Select
@@ -162,7 +164,7 @@ export default class SettingCommon extends Component {
 
   onChangeValue = (value, name) => {
     if (name === 'useSystemTitleBar') {
-      message.info(e('useSystemTitleBarTip'), 5)
+      message.info(systemTitleBarTip(), 8)
     }
     if (name === 'disableConnectionHistory' && value) {
       window.store.history = []
@@ -200,6 +202,36 @@ export default class SettingCommon extends Component {
           onChange={v => this.onChangeValue(v, name)}
         />
         {isNumber(extra) ? null : extra}
+      </div>
+    )
+  }
+
+  // Windows 11 22H2+ system backdrop: blurs whatever is behind the window.
+  // Combine with opacity < 1 to see the blur through the terminal.
+  renderWindowBackgroundMaterial = () => {
+    const name = 'windowBackgroundMaterial'
+    const value = this.props.config[name] || defaultSettings[name]
+    const options = [
+      ['none', e('none')],
+      ['acrylic', 'Acrylic (blur)'],
+      ['mica', 'Mica'],
+      ['tabbed', 'Mica Alt']
+    ]
+    return (
+      <div className='pd2b'>
+        <span className='inline-title mg1r'>{e('blur')}</span>
+        <Select
+          value={value}
+          onChange={v => this.onChangeValue(v, name)}
+          popupMatchSelectWidth={false}
+          className='window-background-material'
+        >
+          {
+            options.map(([v, label]) => (
+              <Option key={v} value={v}>{label}</Option>
+            ))
+          }
+        </Select>
       </div>
     )
   }
@@ -475,6 +507,11 @@ export default class SettingCommon extends Component {
               max: 1,
               cls: 'opacity'
             }, e('opacity'))
+        }
+        {
+          isWin && !isWebApp
+            ? this.renderWindowBackgroundMaterial()
+            : null
         }
 
         <div className='pd2b'>

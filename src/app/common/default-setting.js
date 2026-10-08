@@ -33,6 +33,8 @@ module.exports = exports.default = {
   cursorStyle: 'block',
   useSystemTitleBar: false,
   opacity: 1,
+  // Windows 11: blurred backdrop behind the window - none | acrylic | mica | tabbed
+  windowBackgroundMaterial: 'none',
   defaultEditor: '',
   terminalWordSeparator: './\\()"\'-:,.;<>~!@#$%^&*|+=[]{}`~ ?',
   confirmBeforeExit: false,

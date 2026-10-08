@@ -3,9 +3,10 @@ const {
 } = require('electron')
 const { resolve } = require('path')
 const {
-  isDev, packInfo, iconPath, isMac,
+  isDev, packInfo, iconPath, isMac, isWin,
   minWindowWidth, minWindowHeight
 } = require('../common/runtime-constants')
+const { getEffectiveMaterial } = require('../common/window-material')
 const defaults = require('../common/default-setting')
 const {
   getWindowSize,
@@ -40,6 +41,12 @@ exports.createWindow = async function (userConfig) {
   globalState.set('requireAuth', !!userConfig.hashedPassword)
   const { width, height, x, y } = await getWindowSize()
   const { useSystemTitleBar = defaults.useSystemTitleBar } = userConfig
+  // With the system title bar, see-through comes from a Windows 11 backdrop
+  // material (a framed window can't be transparent itself); set it up front
+  // so the window opens with it instead of flashing opaque
+  const material = useSystemTitleBar && isWin
+    ? getEffectiveMaterial(userConfig)
+    : 'none'
   const win = new BrowserWindow({
     width,
     height,
@@ -51,7 +58,8 @@ exports.createWindow = async function (userConfig) {
     title: packInfo.name,
     frame: useSystemTitleBar,
     transparent: !useSystemTitleBar,
-    backgroundColor: '#333333',
+    backgroundColor: material === 'none' ? '#333333' : '#00000000',
+    ...(material === 'none' ? {} : { backgroundMaterial: material }),
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,

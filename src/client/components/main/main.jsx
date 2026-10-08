@@ -312,7 +312,10 @@ export default auto(function Index (props) {
           : (
             <LazyBoundary>
               <Suspense fallback={null}>
-                <Opacity opacity={config.opacity} />
+                <Opacity
+                  opacity={config.opacity}
+                  material={config.windowBackgroundMaterial}
+                />
               </Suspense>
             </LazyBoundary>
             )}

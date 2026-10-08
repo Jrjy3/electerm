@@ -258,6 +258,13 @@ function initIpc () {
       const win = globalState.get('win')
       win && win.setBackgroundColor(color)
     },
+    // Windows 11 22H2+ only; a no-op elsewhere
+    setBackgroundMaterial: (material = 'none') => {
+      const win = globalState.get('win')
+      if (win && process.platform === 'win32' && win.setBackgroundMaterial) {
+        win.setBackgroundMaterial(material)
+      }
+    },
     changeHotkey: changeHotkeyReg(globalShortcut, globalState.get('win')),
     initCommandLine,
     // No renderer-supplied options: the main process owns platform/execPath.
