@@ -15,8 +15,8 @@ import { refs } from '../components/common/ref'
 import templates from '../components/quick-commands/templates'
 import { readClipboardAsync } from '../common/clipboard'
 
-// Function to parse templates in command string
-async function parseTemplates (cmd) {
+// Function to parse templates in command string, macros use it too
+export async function parseTemplates (cmd) {
   if (!cmd.includes('{{')) return cmd
 
   // Process each template from templates.js

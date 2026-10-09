@@ -63,6 +63,8 @@ function createDb (appPath, defaultUserName, { enc, dec } = {}) {
     'profiles',
     'workspaces',
     'triggers',
+    'macros',
+    'macroGroups',
     'history',
     'terminalCommandHistory',
     'aiChatHistory',

@@ -14,6 +14,7 @@ import {
   modals,
   settingPanelMobileBreakpoint
 } from '../../common/constants'
+import t from '../macros/macro-text'
 const TabBookmarks = lazy(() => import('./tab-bookmarks'))
 const TabQuickCommands = lazy(() => import('./tab-quick-commands'))
 const TabSettings = lazy(() => import('./tab-settings'))
@@ -21,6 +22,7 @@ const TabThemes = lazy(() => import('./tab-themes'))
 const TabProfiles = lazy(() => import('./tab-profiles'))
 const TabWidgets = lazy(() => import('./tab-widgets'))
 const TabTriggers = lazy(() => import('./tab-triggers'))
+const TabMacros = lazy(() => import('./tab-macros'))
 
 const Loading = () => <div style={{ padding: 20, textAlign: 'center' }}><Spin /></div>
 
@@ -116,6 +118,11 @@ export default auto(function SettingModalWrap (props) {
         children: null
       },
       {
+        key: settingMap.macros,
+        label: t('macros', 'Macros'),
+        children: null
+      },
+      {
         key: settingMap.profiles,
         label: e(settingMap.profiles),
         children: null
@@ -154,6 +161,12 @@ export default auto(function SettingModalWrap (props) {
               settingTab={settingTab}
             />
             <TabTriggers
+              listProps={props0}
+              settingItem={settingItem}
+              store={store}
+              settingTab={settingTab}
+            />
+            <TabMacros
               listProps={props0}
               settingItem={settingItem}
               store={store}

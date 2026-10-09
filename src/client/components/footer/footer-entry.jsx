@@ -15,6 +15,7 @@ import TriggerSessionModal from '../triggers/trigger-session-modal'
 import AIIcon from '../icons/ai-icon'
 import { isAIDisabled } from '../../common/ai-feature'
 import CmdHistory from './cmd-history'
+import MacroRunStatus from '../macros/macro-run-status'
 
 const e = window.translate
 
@@ -275,6 +276,7 @@ export default auto(function FooterEntry (props) {
         {renderCmdHistory()}
         {renderQuickCommands()}
         {renderTriggers()}
+        <MacroRunStatus store={props.store} />
         {renderBatchInputs()}
         {renderEncodingInfo()}
         {renderInfoIcon()}

@@ -23,6 +23,7 @@ import {
   quickCommandsInRightPanelKey,
   addPanelWidthLsKey,
   qmSortByFrequencyKey,
+  macroSortByNameKey,
   resolutionsLsKey,
   syncServerDataKey,
   splitMap,
@@ -183,6 +184,11 @@ export default () => {
 
     // declarative auto triggers (global; bookmark/session ones live on the tab)
     triggers: [],
+    macros: [],
+    macroGroups: [],
+    macroSortByName: ls.getItem(macroSortByNameKey) === 'yes',
+    // running macro per tab id: { macroId, name, index, total }
+    runningMacros: {},
     triggerSessionOpen: false,
 
     // touch-only shortcut bar (see components/terminal/shortcut-bar-entry.jsx)

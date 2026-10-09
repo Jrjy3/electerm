@@ -31,6 +31,12 @@ export default (arr, tab) => {
       id: '',
       name: e(settingMap.triggers)
     }
+  } else if (tab === settingMap.macros) {
+    return {
+      id: '',
+      name: '',
+      steps: []
+    }
   } else if (tab === settingMap.profiles) {
     return {
       id: '',

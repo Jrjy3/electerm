@@ -14,6 +14,7 @@ import commonExtend from './common'
 import itemExtend from './item'
 import quickCommandExtend from './quick-command'
 import triggerExtend from './trigger'
+import macroExtend from './macro'
 import sessionExtend from './session'
 import settingExtend from './setting'
 import sidebarExtend from './sidebar'
@@ -345,6 +346,7 @@ commonExtend(Store)
 itemExtend(Store)
 quickCommandExtend(Store)
 triggerExtend(Store)
+macroExtend(Store)
 sessionExtend(Store)
 settingExtend(Store)
 sidebarExtend(Store)

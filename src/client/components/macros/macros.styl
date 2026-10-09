@@ -1,0 +1,87 @@
+.macro-list-toolbar
+  display flex
+  justify-content space-between
+.macro-group-title
+  .macro-group-label
+    display flex
+    align-items center
+    min-width 0
+  .macro-count
+    opacity 0.6
+  .macro-group-ops
+    display none
+    white-space nowrap
+    padding-right 6px
+    line-height 35px
+    .anticon
+      margin-left 6px
+  &:hover
+    .macro-group-ops
+      display block
+  &.macro-drop-into
+    outline 1px dashed var(--primary)
+.is-touch-device
+  .macro-group-title
+    .macro-group-ops
+      display block
+
+.macro-steps
+  .macro-step-row
+    display flex
+    align-items center
+    gap 6px
+    margin-bottom 6px
+    &.macro-step-dragging
+      opacity 0.5
+  .macro-step-head
+    margin-bottom 2px
+    opacity 0.7
+    font-size 12px
+  .macro-step-drag
+    width 14px
+    flex none
+    cursor grab
+  .macro-step-index
+    width 22px
+    flex none
+    text-align right
+    opacity 0.7
+  .macro-step-type
+    width 80px
+    flex none
+  .macro-step-value
+    flex 1
+    min-width 120px
+  .macro-step-option
+    width 84px
+    flex none
+  .macro-step-sleep
+    width 110px
+    flex none
+  .macro-step-ops
+    width 84px
+    flex none
+    white-space nowrap
+
+.terminal-footer-macro
+  display flex
+  align-items center
+  max-width 320px
+.macro-run-chip
+  display flex
+  align-items center
+  line-height 24px
+  padding 0 4px 0 10px
+  border-radius 12px
+  background var(--primary)
+  color var(--primary-contrast)
+  min-width 0
+  .macro-run-name
+    max-width 140px
+  .macro-run-stop
+    display flex
+    align-items center
+    padding 0 8px
+    border-radius 10px
+    background var(--error, #e5484d)
+    color #fff

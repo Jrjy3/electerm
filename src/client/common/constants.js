@@ -109,14 +109,17 @@ export const settingMap = buildConst([
   'profiles',
   'widgets',
   'workspaces',
-  'triggers'
+  'triggers',
+  'macros',
+  'macroGroups'
 ])
 
 export const staticNewItemTabs = new Set([
   'terminalThemes',
   'quickCommands',
   'profiles',
-  'triggers'
+  'triggers',
+  'macros'
 ])
 
 export const infoTabs = buildConst([
@@ -163,6 +166,7 @@ export const quickCommandsInRightPanelKey = 'quick-commands-in-right-panel'
 export const addPanelWidthLsKey = 'addPanelWidth'
 export const sftpDefaultSortSettingKey = 'sftp-default-sort'
 export const qmSortByFrequencyKey = 'qm-sort-by-frequency'
+export const macroSortByNameKey = 'macro-sort-by-name'
 
 export const commonBaudRates = [
   110,
@@ -409,7 +413,8 @@ export const syncDataMaps = {
   profiles: ['profiles'],
   addressBookmarks: ['addressBookmarks'],
   workspaces: ['workspaces'],
-  triggers: ['triggers']
+  triggers: ['triggers'],
+  macros: ['macros', 'macroGroups']
 }
 export const terminalTypes = [
   'xterm-256color',
