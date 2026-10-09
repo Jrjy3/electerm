@@ -15,9 +15,11 @@ export default auto(function MacroRunStatus ({ store }) {
   return (
     <div className='terminal-footer-unit terminal-footer-macro'>
       <span className='macro-run-chip' title={run.name}>
-        <LoadingOutlined className='mg1r' />
-        <span className='elli macro-run-name'>{run.name || t('macro', 'Macro')}</span>
-        <span className='mg1x'>{progress}</span>
+        <span className='macro-run-info'>
+          <LoadingOutlined className='mg1r' />
+          <span className='elli macro-run-name'>{run.name || t('macro', 'Macro')}</span>
+          <span className='mg1l'>{progress}</span>
+        </span>
         <span
           className='pointer macro-run-stop'
           title={t('stopMacro', 'Stop macro')}

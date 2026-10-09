@@ -1,6 +1,8 @@
 /**
  * macro edit form (settings right col)
  */
+import { useEffect } from 'react'
+import { auto } from 'manate/react'
 import { Button, Form, Select } from 'antd'
 import { CaretRightOutlined } from '@ant-design/icons'
 import deepCopy from 'json-deep-copy'
@@ -61,12 +63,20 @@ function cleanSteps (steps) {
   })
 }
 
-export default function MacroForm (props) {
+export default auto(function MacroForm (props) {
   const [form] = Form.useForm()
   const { store, formData } = props
+  // the macro's category right now; it changes under the open form when the
+  // macro is dragged to another category or its category is deleted
+  const liveGroupId = findMacroGroupId(store.macroGroups, formData.id) || defaultMacroGroupId
+  useEffect(() => {
+    if (formData.id) {
+      form.setFieldValue('groupId', liveGroupId)
+    }
+  }, [liveGroupId])
   const initialValues = {
     name: formData.name || '',
-    groupId: findMacroGroupId(store.macroGroups, formData.id) || defaultMacroGroupId,
+    groupId: liveGroupId,
     steps: formData.steps && formData.steps.length
       ? deepCopy(formData.steps)
       : [newStep()]
@@ -84,7 +94,13 @@ export default function MacroForm (props) {
     const { name, groupId } = await form.validateFields()
     const { steps } = buildMacro()
     if (formData.id) {
-      store.editMacro(formData.id, { name, steps }, groupId)
+      // move only when the picker was changed, so a stale value never undoes
+      // a drag done while the form was open
+      store.editMacro(
+        formData.id,
+        { name, steps },
+        groupId !== liveGroupId ? groupId : undefined
+      )
       message.success(e('saved'))
       return
     }
@@ -150,4 +166,4 @@ export default function MacroForm (props) {
       </p>
     </Form>
   )
-}
+})

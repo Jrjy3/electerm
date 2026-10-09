@@ -67,21 +67,30 @@
   display flex
   align-items center
   max-width 320px
+// one pill: blue progress part on the left, red stop part filling the
+// right end, so no blue shows past the stop button
 .macro-run-chip
   display flex
   align-items center
   line-height 24px
-  padding 0 4px 0 10px
   border-radius 12px
+  overflow hidden
   background var(--primary)
   color var(--primary-contrast)
   min-width 0
+  .macro-run-info
+    display flex
+    align-items center
+    padding 0 8px 0 10px
+    min-width 0
   .macro-run-name
     max-width 140px
   .macro-run-stop
     display flex
     align-items center
-    padding 0 8px
-    border-radius 10px
+    align-self stretch
+    padding 0 10px 0 8px
     background var(--error, #e5484d)
     color #fff
+    &:hover
+      filter brightness(1.1)
