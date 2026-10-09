@@ -157,6 +157,11 @@ class ShortcutControl extends React.PureComponent {
     }
   }, 500)
 
+  stopMacroShortcut = throttle((e) => {
+    e.stopPropagation()
+    window.store.stopMacro()
+  }, 500)
+
   prevTabShortcut = throttle((e) => {
     e.stopPropagation()
     window.store.clickPrevTab()

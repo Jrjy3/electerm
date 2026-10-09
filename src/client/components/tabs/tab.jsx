@@ -10,7 +10,9 @@ import {
   Loading3QuartersOutlined,
   BorderlessTableOutlined,
   LockOutlined,
-  PushpinFilled
+  PushpinFilled,
+  LoadingOutlined,
+  BorderOutlined
 } from '@ant-design/icons'
 import {
   Tooltip,
@@ -27,6 +29,7 @@ import { action } from 'manate'
 import iconsMap from '../sys-menu/icons-map.jsx'
 import { shortcutDescExtend } from '../shortcuts/shortcut-handler.js'
 import { isDropAfterHalf } from '../../common/drop-position'
+import macroText from '../macros/macro-text'
 
 const e = window.translate
 const onDragCls = 'ondrag-tab'
@@ -317,6 +320,10 @@ class Tab extends Component {
     window.store.closeTabsRight(this.props.tab.id)
   }
 
+  stopMacro = () => {
+    window.store.stopMacro(this.props.tab.id)
+  }
+
   togglePin = () => {
     const { tab } = this.props
     window.store.pinTab(tab.id, !tab.isPinned)
@@ -332,8 +339,16 @@ class Tab extends Component {
     const cloneToNextShortcut = this.getShortcut('app_cloneToNextLayout')
     const duplicateShortcut = this.getShortcut('app_duplicateTab')
     const reloadAllShortcut = this.getShortcut('app_reloadAll')
+    const macroRunning = !!window.store.runningMacros[tab.id]
 
     const x = [
+      macroRunning && {
+        key: 'stopMacro',
+        icon: <BorderOutlined />,
+        label: macroText('stopMacro', 'Stop macro'),
+        extra: this.getShortcut('app_stopMacro'),
+        danger: true
+      },
       {
         key: 'handleClose',
         icon: <iconsMap.CloseCircleOutlined />,
@@ -517,6 +532,7 @@ class Tab extends Component {
       trigger: ['contextMenu']
     }
     const { tabCount, color = '#0088cc' } = tab
+    const runningMacro = window.store.runningMacros[id]
     const styleTag = color
       ? {
           background: color,
@@ -567,6 +583,14 @@ class Tab extends Component {
                     )
                   : null}
                 {tab.isPinned && <PushpinFilled className='tab-pin' />}
+                {
+                  runningMacro && (
+                    <LoadingOutlined
+                      className='tab-macro-running mg1r'
+                      title={runningMacro.name}
+                    />
+                  )
+                }
                 <span className='mg1r'>{title}</span>
               </span>
             </div>

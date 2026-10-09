@@ -32,6 +32,13 @@ export default () => {
       shortcutMac: 'alt+c'
     },
     {
+      // unbound by default, users set it in the shortcut settings
+      name: 'app_stopMacro',
+      desc: 'Stop macro',
+      shortcut: '',
+      shortcutMac: ''
+    },
+    {
       name: 'app_newBookmark',
       shortcut: 'ctrl+n',
       shortcutMac: 'meta+n'
