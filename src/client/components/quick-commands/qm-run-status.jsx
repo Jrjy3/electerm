@@ -13,9 +13,12 @@ export default auto(function QmRunStatus ({ store }) {
     return null
   }
   const progress = `${Math.min(run.index + 1, run.total)}/${run.total}`
-  const waiting = run.waitFor
-    ? `${translateOr('waitingFor', 'Waiting for')} "${run.waitFor}"`
-    : ''
+  let waiting = ''
+  if (run.waitFor) {
+    waiting = `${translateOr('waitingFor', 'Waiting for')} "${run.waitFor}"`
+  } else if (run.asking) {
+    waiting = translateOr('waitingForInput', 'Waiting for input')
+  }
   return (
     <div className='terminal-footer-unit terminal-footer-qm-run'>
       <span className='qm-run-chip' title={waiting ? `${run.name}: ${waiting}` : run.name}>
